@@ -33,7 +33,7 @@ public class ProdutoResource {
 
 	}
 	
-	@PostMapping
+	/*@PostMapping
 	public ResponseEntity<Produto>criar(@RequestBody Produto produto, HttpServletResponse response) {
 		Produto produtoSalvo = produtoRepository.save(produto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("{codigo}")
@@ -42,7 +42,7 @@ public class ProdutoResource {
 		return ResponseEntity.created(uri).body(produtoSalvo);
 		
 		
-	}
+	}*/
 
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Produto> buscarPeloCodigo(@PathVariable Long codigo) {

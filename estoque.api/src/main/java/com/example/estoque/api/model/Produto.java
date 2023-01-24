@@ -1,5 +1,6 @@
 package com.example.estoque.api.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -7,35 +8,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
 
 @Entity
 @Table(name = "Produto")
-public class Produto {
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+
+public class Produto implements Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	private String nome;
 	private double valor;
 	
-	public Long getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public double getValor() {
-		return valor;
-	}
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
