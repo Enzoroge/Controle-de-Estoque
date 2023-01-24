@@ -7,17 +7,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Usuario")
-//@Getter
-//@Setter
-//@AllArgsConstructor
-//@NoArgsConstructor
+@Table(name = "usuario")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -31,4 +31,5 @@ public class Usuario implements Serializable{
 	private String cpf;
 	
 
+	
 }
