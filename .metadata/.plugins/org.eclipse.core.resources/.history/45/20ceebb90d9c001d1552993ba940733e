@@ -1,0 +1,47 @@
+package com.example.estoque.api.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.estoque.api.model.Produto;
+import com.example.estoque.api.repository.ProdutoRepository;
+
+@Service
+public class ProdutoService {
+	
+	@Autowired
+	private Produto produto;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	public List<Produto> findAll(){
+		return produtoRepository.findAll();
+	
+	
+	//public static Object adicionar(int quantidade) {
+		//quantidade += quantidade;
+		//try {
+			//return ProdutoService.adicionar(quantidade);
+		//} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		//}
+		//return quantidade;
+		
+	//}
+
+	//public Produto adicionar(int quantidade) {
+		//quantidade += quantidade;
+		//return produto;
+		
+	}
+
+	//public Produto adicionar(Long id, Produto obj) {
+		// TODO Auto-generated method stub
+	//	return null;
+	//}
+
+}

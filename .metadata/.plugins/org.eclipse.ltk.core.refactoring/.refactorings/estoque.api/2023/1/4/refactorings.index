@@ -5,3 +5,7 @@
 1674526636301	Copy compilation unit
 1674526684832	Delete element
 1674526722007	Rename type 'Pessoa'
+1674566501130	Copy compilation unit
+1674576665560	Rename package 'com.example.estoque.api.resource'
+1674576691043	Rename type 'ProdutoResource'
+1674576710500	Rename type 'UsuarioResource'

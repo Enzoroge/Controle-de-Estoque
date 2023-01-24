@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "Produto")
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 
 public class Produto implements Serializable{
 	
@@ -31,6 +33,15 @@ public class Produto implements Serializable{
 	private double valor;
 	private Integer quantidade;
 	private double valorTotal;
+	
+	//public void addQuantidade(int quantidade) {
+		//this.quantidade += quantidade;
+		
+	//}
+	
+	//public Double valorTotalNoEstoqur() {
+		//return quantidade * valor;
+	//}
 	
 	
 	@Override
