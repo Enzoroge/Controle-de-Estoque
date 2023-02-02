@@ -1,0 +1,57 @@
+package com.example.estoque.api.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.estoque.api.model.Produto;
+import com.example.estoque.api.repository.ProdutoRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
+@Service
+public class ProdutoService {
+	
+	
+
+	@Autowired
+	private ProdutoRepository produtoRepository;
+
+	
+
+	public List<Produto> findAll() {
+		return produtoRepository.findAll();
+	}	
+		
+	
+
+	
+
+	public Produto atualizarQuantidade(Long codigo, Produto obj) throws ControllerrNotFoundException {
+		try {
+			Produto entity = produtoRepository.getReferenceById(codigo);
+			produtoAtualizado(entity, obj);
+			return produtoRepository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ControllerrNotFoundException(codigo);
+		}
+
+	}
+
+	private void produtoAtualizado(Produto produto, Produto obj) {
+	produto.setQuantidade(obj.getQuantidade());
+	produto.getValorTotal(valorTotal);
+	return valorTotal;;
+	
+	}
+	
+	
+
+
+
+
+
+	
+
+}

@@ -1,12 +1,17 @@
 package com.example.estoque.api.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +27,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 
-public class Produto implements Serializable{
-	
-	
+public class Produto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -33,21 +38,16 @@ public class Produto implements Serializable{
 	private double valor;
 	private Integer quantidade;
 	private double valorTotal;
-	
-	//public void addQuantidade(int quantidade) {
-		//this.quantidade += quantidade;
-		
-	//}
-	
-	//public Double valorTotalNoEstoqur() {
-		//return quantidade * valor;
-	//}
-	
-	
+
+	@ManyToMany
+	@JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private Set<Categoria> categorias = new HashSet<>();
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,8 +59,5 @@ public class Produto implements Serializable{
 		Produto other = (Produto) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
-	
-	
-	
 
 }

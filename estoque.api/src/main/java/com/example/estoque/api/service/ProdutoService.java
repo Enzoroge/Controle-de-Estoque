@@ -18,13 +18,26 @@ public class ProdutoService {
 
 	public List<Produto> findAll() {
 		return produtoRepository.findAll();
+	}
+
+	public Produto inserir(Produto obj) {
+
+		obj.setValorTotal(obj.getQuantidade() * obj.getValor());
+
+		return produtoRepository.save(obj);
 
 	}
-	
-	public Produto adcionarQuantidade(Long id, Produto obj) throws ControllerrNotFoundException {
+
+	private void produtoInserido(Produto produto, Produto obj) {
+		produto.setQuantidade(obj.getQuantidade());
+		produto.setNome(obj.getNome());
+		produto.setValorTotal(obj.getValorTotal());
+	}
+
+	public Produto atualizarQuantidade(Long id, Produto obj) throws ControllerrNotFoundException {
 		try {
 			Produto entity = produtoRepository.getReferenceById(id);
-			produtoAdcionado(entity, obj);
+			produtoAtualizado(entity, obj);
 			return produtoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ControllerrNotFoundException(id);
@@ -32,16 +45,12 @@ public class ProdutoService {
 
 	}
 
-	
-		
-		
-	
-
-	private void produtoAdcionado(Produto produto, Produto obj) {
+	private void produtoAtualizado(Produto produto, Produto obj) {
+		produto.setValor(obj.getValor());
 		produto.setQuantidade(obj.getQuantidade());
-		
+		produto.setNome(obj.getNome());
+		produto.setValorTotal(produto.getQuantidade() * produto.getValor());
 
 	}
-	
 
 }

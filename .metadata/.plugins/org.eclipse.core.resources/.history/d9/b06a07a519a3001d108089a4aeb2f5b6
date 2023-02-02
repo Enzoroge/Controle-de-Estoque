@@ -1,0 +1,5 @@
+package com.example.estoque.api.model;
+
+public class Categeoria {
+
+}

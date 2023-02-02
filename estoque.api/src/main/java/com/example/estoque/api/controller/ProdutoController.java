@@ -1,6 +1,5 @@
 package com.example.estoque.api.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,38 +11,31 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.estoque.api.model.Produto;
 import com.example.estoque.api.repository.ProdutoRepository;
 import com.example.estoque.api.service.ControllerrNotFoundException;
 import com.example.estoque.api.service.ProdutoService;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
-	
+
 	@Autowired
 	private ProdutoService produtoService;
 
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	public ProdutoRepository produtoRepository;
 
 	@GetMapping
 	public List<Produto> lista() {
-		return produtoRepository.findAll();
-
+		return produtoService.findAll();
 	}
 
 	@PostMapping
-	public ResponseEntity<Produto> criar(@RequestBody Produto produto, HttpServletResponse response) {
-		Produto produtoSalvo = produtoRepository.save(produto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("{codigo}")
-				.buildAndExpand(produtoSalvo.getCodigo()).toUri();
-		response.setHeader("Location", uri.toASCIIString());
-		return ResponseEntity.created(uri).body(produtoSalvo);
+	public ResponseEntity<Produto> inserir(@RequestBody Produto obj) {
+		obj = produtoService.inserir(obj);
+		return ResponseEntity.ok().body(obj);
 
 	}
 
@@ -53,11 +45,12 @@ public class ProdutoController {
 		return produto != null ? ResponseEntity.ok(produto) : ResponseEntity.notFound().build();
 
 	}
-	
-	@PutMapping(value = "{id}")
-	public ResponseEntity<Produto> adcionar(@PathVariable Long id, @RequestBody Produto obj) throws ControllerrNotFoundException{
-	obj = produtoService.adcionarQuantidade(id, obj);
-	return ResponseEntity.ok().body(obj);
+
+	@PutMapping(value = "/{codigo}")
+	public ResponseEntity<Produto> adcionar(@PathVariable Long codigo, @RequestBody Produto obj)
+			throws ControllerrNotFoundException {
+		obj = produtoService.atualizarQuantidade(codigo, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
