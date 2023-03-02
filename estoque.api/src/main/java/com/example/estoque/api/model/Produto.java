@@ -1,17 +1,15 @@
 package com.example.estoque.api.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,10 +36,13 @@ public class Produto implements Serializable {
 	private double valor;
 	private Integer quantidade;
 	private double valorTotal;
+	
+	
 
-	@ManyToMany
-	@JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private Set<Categoria> categorias = new HashSet<>();
+	
+	@ManyToOne
+	@JoinTable(name = "categoria_id")
+	Categoria categorias;
 
 	@Override
 	public int hashCode() {

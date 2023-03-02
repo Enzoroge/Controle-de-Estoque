@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.estoque.api.model.Categoria;
 import com.example.estoque.api.model.Produto;
+import com.example.estoque.api.repository.CategoriaRepository;
 import com.example.estoque.api.repository.ProdutoRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -21,8 +23,8 @@ public class ProdutoService {
 	}
 
 	public Produto inserir(Produto obj) {
-
 		obj.setValorTotal(obj.getQuantidade() * obj.getValor());
+		obj.setCategorias(obj.getCategorias());
 
 		return produtoRepository.save(obj);
 
@@ -32,6 +34,7 @@ public class ProdutoService {
 		produto.setQuantidade(obj.getQuantidade());
 		produto.setNome(obj.getNome());
 		produto.setValorTotal(obj.getValorTotal());
+		produto.setCategorias(obj.getCategorias());
 	}
 
 	public Produto atualizarQuantidade(Long id, Produto obj) throws ControllerrNotFoundException {
@@ -50,6 +53,29 @@ public class ProdutoService {
 		produto.setQuantidade(obj.getQuantidade());
 		produto.setNome(obj.getNome());
 		produto.setValorTotal(produto.getQuantidade() * produto.getValor());
+		produto.setCategorias(produto.getCategorias());
+
+	}
+
+	public Produto inserirCategoria(Produto produto) {
+		produto.setCategorias(produto.getCategorias());
+		return inserirCategoria(produto);
+	}
+
+	/*
+	 * public Categoria atualizarCategoria(Long id, Categoria obj) throws
+	 * ControllerrNotFoundException { try { Categoria entity =
+	 * categoriaRepository.getReferenceById(id); categoriaAtualizado(entity, obj);
+	 * return categoriaService.atualizarCategoria(id, entity); } catch
+	 * (EntityNotFoundException e) { throw new ControllerrNotFoundException(id); } }
+	 */
+
+	private void categoriaInserida(Categoria categoria, Categoria obj) {
+		// produto.setValor(obj.getValor());
+		// produto.setQuantidade(obj.getQuantidade());
+		// produto.setNome(obj.getNome());
+		// produto.setValorTotal(produto.getQuantidade() * produto.getValor());
+		categoria.setNome(obj.getNome());
 
 	}
 

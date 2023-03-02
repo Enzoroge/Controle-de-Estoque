@@ -1,11 +1,13 @@
 package com.example.estoque.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.estoque.api.model.Categoria;
+import com.example.estoque.api.model.Produto;
 import com.example.estoque.api.repository.CategoriaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,14 +21,20 @@ public class CategoriaService {
 	public List<Categoria> findAll() {
 		return categoriaRepository.findAll();
 	}
+	public List<Categoria> findByNome(){
+		return categoriaRepository.findByNome(null);
+	}
 
 	public Categoria inserir(Categoria obj) {
+		obj.setId(obj.getId());
+		obj.setNome(obj.getNome());
 		return categoriaRepository.save(obj);
 
 	}
 
 	private void categoriaInserido(Categoria categoria, Categoria obj) {
 		categoria.setNome(obj.getNome());
+
 	}
 
 	public Categoria atualizarCategoria(Long id, Categoria obj) throws ControllerrNotFoundException {

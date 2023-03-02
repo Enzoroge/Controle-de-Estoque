@@ -2,6 +2,7 @@ package com.example.estoque.api.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
-	
+
 	@Autowired
 	private CategoriaService categoriaService;
 
@@ -34,6 +35,18 @@ public class CategoriaController {
 	@GetMapping
 	public List<Categoria> lista() {
 		return CategoriaRepository.findAll();
+
+	}
+
+	@GetMapping("/por-nome")
+	public List<Categoria> consultarPorNome(String nome) {
+		return CategoriaRepository.findByNome(nome);
+	}
+
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
+		Categoria categoria = CategoriaRepository.findById(codigo).orElse(null);
+		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 
 	}
 
@@ -47,18 +60,11 @@ public class CategoriaController {
 
 	}
 
-	@GetMapping("/{codigo}")
-	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
-		Categoria categoria = CategoriaRepository.findById(codigo).orElse(null);
-		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
-
-	}
-	
 	@PutMapping(value = "/{codigo}")
 	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @RequestBody Categoria obj)
-			throws ControllerrNotFoundException{
+			throws ControllerrNotFoundException {
 		obj = categoriaService.atualizarCategoria(codigo, obj);
 		return ResponseEntity.ok().body(obj);
-		
+
 	}
 }
